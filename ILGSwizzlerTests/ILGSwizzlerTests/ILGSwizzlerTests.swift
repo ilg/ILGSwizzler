@@ -31,9 +31,9 @@ class ILGSwizzlerTests: XCTestCase {
         // Do the swizzling.
         do {
             let swizzler = ILGSwizzler()
-            swizzler.replaceImplementation(ofInstanceSelector: #selector(Target.returnsZero),
-                                           on: Target.self,
-                                           withImplementationFrom: Source.self)
+            swizzler.replaceInstanceImplementation(of: #selector(Target.returnsZero),
+                                                   on: Target.self,
+                                                   withImplementationFrom: Source.self)
             
             // Check swizzled behavior.
             let target = Target()
@@ -63,9 +63,9 @@ class ILGSwizzlerTests: XCTestCase {
         // Do the swizzling.
         do {
             let swizzler = ILGSwizzler()
-            swizzler.replaceImplementation(ofClassSelector: #selector(Target.returnsZero),
-                                           on: Target.self,
-                                           withImplementationFrom: Source.self)
+            swizzler.replaceClassImplementation(of: #selector(Target.returnsZero),
+                                                on: Target.self,
+                                                withImplementationFrom: Source.self)
             
             // Check swizzled behavior.
             let target = Target()
@@ -95,9 +95,9 @@ class ILGSwizzlerTests: XCTestCase {
         // Do the swizzling.
         do {
             let swizzler = ILGSwizzler()
-            swizzler.replaceImplementation(ofInstanceSelector: #selector(Target.returnsZero),
-                                           on: Target.self,
-                                           withBlock: { _ in NSNotFound } as @convention(block) (Any) -> Int)
+            swizzler.replaceInstanceImplementation(of: #selector(Target.returnsZero),
+                                                   on: Target.self,
+                                                   with: { _ in NSNotFound } as @convention(block) (Any) -> Int)
             
             // Check swizzled behavior.
             let target = Target()
@@ -125,9 +125,9 @@ class ILGSwizzlerTests: XCTestCase {
         // Do the swizzling.
         do {
             let swizzler = ILGSwizzler()
-            swizzler.replaceImplementation(ofClassSelector: #selector(Target.returnsZero),
-                                           on: Target.self,
-                                           withBlock: { _ in NSNotFound } as @convention(block) (Any) -> Int)
+            swizzler.replaceClassImplementation(of: #selector(Target.returnsZero),
+                                                on: Target.self,
+                                                with: { _ in NSNotFound } as @convention(block) (Any) -> Int)
             
             // Check swizzled behavior.
             let target = Target()
@@ -153,17 +153,17 @@ class ILGSwizzlerTests: XCTestCase {
         // Do the first swizzling.
         do {
             let swizzler = ILGSwizzler()
-            swizzler.replaceImplementation(ofClassSelector: #selector(Target.returnsZero),
-                                           on: Target.self,
-                                           withBlock: { _ in NSNotFound } as @convention(block) (Any) -> Int)
-
+            swizzler.replaceClassImplementation(of: #selector(Target.returnsZero),
+                                                on: Target.self,
+                                                with: { _ in NSNotFound } as @convention(block) (Any) -> Int)
+            
             // Check swizzled behavior.
             XCTAssertEqual(Target.returnsZero(), NSNotFound, "Swizzled (first) replacement class implementation failed to return NSNotFound.")
             
             // Do the second swizzling.
-            swizzler.replaceImplementation(ofClassSelector: #selector(Target.returnsZero),
-                                           on: Target.self,
-                                           withBlock: { _ in 42 } as @convention(block) (Any) -> Int)
+            swizzler.replaceClassImplementation(of: #selector(Target.returnsZero),
+                                                on: Target.self,
+                                                with: { _ in 42 } as @convention(block) (Any) -> Int)
             
             // Check swizzled behavior.
             XCTAssertEqual(Target.returnsZero(), 42, "Swizzled (second) replacement class implementation failed to return 42.")
@@ -186,10 +186,10 @@ class ILGSwizzlerTests: XCTestCase {
         // Do the first swizzling.
         do {
             let swizzler = ILGSwizzler()
-            swizzler.replaceImplementation(ofInstanceSelector: #selector(Target.returnsZero),
-                                           on: Target.self,
-                                           withBlock: { _ in NSNotFound } as @convention(block) (Any) -> Int)
-
+            swizzler.replaceInstanceImplementation(of: #selector(Target.returnsZero),
+                                                   on: Target.self,
+                                                   with: { _ in NSNotFound } as @convention(block) (Any) -> Int)
+            
             // Check swizzled behavior.
             do {
                 let target = Target()
@@ -197,9 +197,9 @@ class ILGSwizzlerTests: XCTestCase {
             }
             
             // Do the second swizzling.
-            swizzler.replaceImplementation(ofInstanceSelector: #selector(Target.returnsZero),
-                                           on: Target.self,
-                                           withBlock: { _ in 42 } as @convention(block) (Any) -> Int)
+            swizzler.replaceInstanceImplementation(of: #selector(Target.returnsZero),
+                                                   on: Target.self,
+                                                   with: { _ in 42 } as @convention(block) (Any) -> Int)
             
             // Check swizzled behavior.
             do {

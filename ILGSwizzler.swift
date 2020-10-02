@@ -7,6 +7,8 @@
 
 import Foundation
 
+/// Class to facilitate replacing the implementation of class and/or instance methods with methods of the same name on
+/// another class or with blocks, as well as facilitate undoing this swizzling.  Intended for use in unit testing.
 public class ILGSwizzler {
     private struct Key: Hashable {
         static func == (lhs: Self, rhs: Self) -> Bool {
@@ -68,9 +70,15 @@ public class ILGSwizzler {
         }
     }
     
-    public func replaceImplementation(ofClassSelector selector: Selector,
-                                      on targetClass: AnyClass,
-                                      withImplementationFrom implementationClass: AnyClass) {
+    /// Replace the implementation of a class method on one class with the corresponding method's implementation from
+    /// another class.
+    /// - Parameters:
+    ///   - selector: The selector to replace
+    ///   - targetClass: The class on which to replace it
+    ///   - implementationClass: The class from which to get the replacement implementation
+    public func replaceClassImplementation(of selector: Selector,
+                                           on targetClass: AnyClass,
+                                           withImplementationFrom implementationClass: AnyClass) {
         guard let replacementMethod = class_getClassMethod(implementationClass, selector) else { return }
         let replacementImplementation = method_getImplementation(replacementMethod)
         replaceClassImplementation(of: selector,
@@ -78,9 +86,15 @@ public class ILGSwizzler {
                                    with: replacementImplementation)
     }
     
-    public func replaceImplementation(ofInstanceSelector selector: Selector,
-                                      on targetClass: AnyClass,
-                                      withImplementationFrom implementationClass: AnyClass) {
+    /// Replace the implementation of an instance method on one class with the corresponding method's implementation
+    /// from another class.
+    /// - Parameters:
+    ///   - selector: The selector to replace
+    ///   - targetClass: The class on which to replace it
+    ///   - implementationClass: The class from which to get the replacement implementation
+    public func replaceInstanceImplementation(of selector: Selector,
+                                              on targetClass: AnyClass,
+                                              withImplementationFrom implementationClass: AnyClass) {
         guard let replacementMethod = class_getInstanceMethod(implementationClass, selector) else { return }
         let replacementImplementation = method_getImplementation(replacementMethod)
         replaceInstanceImplementation(of: selector,
@@ -88,22 +102,33 @@ public class ILGSwizzler {
                                       with: replacementImplementation)
     }
     
-    public func replaceImplementation(ofClassSelector selector: Selector,
-                                      on targetClass: AnyClass,
-                                      withBlock implementationBlock: Any) {
+    /// Replace the implementation of a class method on a given class with a block.
+    /// - Parameters:
+    ///   - selector: The selector to replace
+    ///   - targetClass: The class on which to replace it
+    ///   - implementationBlock: The block to use as the replacement implementation
+    public func replaceClassImplementation(of selector: Selector,
+                                           on targetClass: AnyClass,
+                                           with implementationBlock: Any) {
         replaceClassImplementation(of: selector,
                                    on: targetClass,
                                    with: imp_implementationWithBlock(implementationBlock))
     }
     
-    public func replaceImplementation(ofInstanceSelector selector: Selector,
-                                      on targetClass: AnyClass,
-                                      withBlock implementationBlock: Any) {
+    /// Replace the implementation of an instance method on a given class with a block.
+    /// - Parameters:
+    ///   - selector: The selector to replace
+    ///   - targetClass: The class on which to replace it
+    ///   - implementationBlock: The block to use as the replacement implementation
+    public func replaceInstanceImplementation(of selector: Selector,
+                                              on targetClass: AnyClass,
+                                              with implementationBlock: Any) {
         replaceInstanceImplementation(of: selector,
                                       on: targetClass,
                                       with: imp_implementationWithBlock(implementationBlock))
     }
     
+    /// Undo any method implementation replacement.
     public func done() {
         for (key, implementation) in originalClassMethodImplementations {
             guard let method = class_getClassMethod(key.cls, key.selector) else { continue }
