@@ -14,12 +14,8 @@
     "git": "https://github.com/ilg/ILGSwizzler.git",
     "tag": "1.0.0"
   },
-  "source_files": "ILGSwizzler.{h,m}",
-  "requires_arc": false,
+  "source_files": "ILGSwizzler.swift",
   "platforms": {
-    "osx": null,
-    "ios": null,
-    "tvos": null,
-    "watchos": null
+    "osx": "10.9"
   }
 }

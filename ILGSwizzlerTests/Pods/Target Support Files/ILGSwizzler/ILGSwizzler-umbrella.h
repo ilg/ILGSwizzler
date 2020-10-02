@@ -10,7 +10,6 @@
 #endif
 #endif
 
-#import "ILGSwizzler.h"
 
 FOUNDATION_EXPORT double ILGSwizzlerVersionNumber;
 FOUNDATION_EXPORT const unsigned char ILGSwizzlerVersionString[];

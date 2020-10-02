@@ -6,6 +6,7 @@ Pod::Spec.new do |s|
   s.license      = { :type => "MIT", :file => "LICENSE" }
   s.author       = { "Isaac Greenspan" => "ilg@2718.us" }
   s.source       = { :git => "https://github.com/ilg/ILGSwizzler.git", :tag => "1.0.0" }
-  s.source_files = "ILGSwizzler.{h,m}"
-  s.requires_arc = false
+  s.source_files = "ILGSwizzler.swift"
+  s.osx.deployment_target = "10.9"
+  s.ios.deployment_target = "11.0"
 end
