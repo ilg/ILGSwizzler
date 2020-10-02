@@ -1,0 +1,6 @@
+use_frameworks!
+
+target 'ILGSwizzlerTests' do
+    platform :osx, '10.8'
+    pod 'ILGSwizzler', :path => '..'
+end

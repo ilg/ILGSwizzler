@@ -1,0 +1,16 @@
+PODS:
+  - ILGSwizzler (2.0.0)
+
+DEPENDENCIES:
+  - ILGSwizzler (from `..`)
+
+EXTERNAL SOURCES:
+  ILGSwizzler:
+    :path: ".."
+
+SPEC CHECKSUMS:
+  ILGSwizzler: 87d1b0e7c3f0dc2b2bbd83266bc7e8ab64dfbf6e
+
+PODFILE CHECKSUM: cd63925058f8523a0fc30d7da8e1cf94c3203fa5
+
+COCOAPODS: 1.9.3

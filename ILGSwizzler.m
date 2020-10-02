@@ -110,9 +110,7 @@
 {
     [[[self.originalClassMethodImplementations copy] autorelease] enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         NSArray *parts = [(NSString *)key componentsSeparatedByString:@"."];
-        if (parts.count != 2) {
-            return;
-        }
+        if (parts.count != 2) { return; }
         Class class = NSClassFromString(parts[0]);
         SEL selector = NSSelectorFromString(parts[1]);
         Method method = class_getClassMethod(class, selector);
@@ -122,9 +120,7 @@
     }];
     [[[self.originalInstanceMethodImplementations copy] autorelease] enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         NSArray *parts = [(NSString *)key componentsSeparatedByString:@"."];
-        if (parts.count != 2) {
-            return;
-        }
+        if (parts.count != 2) { return; }
         Class class = NSClassFromString(parts[0]);
         SEL selector = NSSelectorFromString(parts[1]);
         Method method = class_getInstanceMethod(class, selector);

@@ -1,0 +1,6 @@
+framework module ILGSwizzler {
+  umbrella header "ILGSwizzler-umbrella.h"
+
+  export *
+  module * { export * }
+}

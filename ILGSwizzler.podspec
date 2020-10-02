@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "ILGSwizzler"
-  s.version      = "1.0.0"
+  s.version      = "2.0.0"
   s.summary      = "Class to facilitate method swizzling, particularly for testing."
   s.homepage     = "https://github.com/ilg/ILGSwizzler"
   s.license      = { :type => "MIT", :file => "LICENSE" }
